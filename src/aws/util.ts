@@ -26,7 +26,8 @@ export const createRecordSetsRequest = (Action: string, Name: string, HostedZone
             Name,
             Type: 'A',
             AliasTarget: {
-              HostedZoneId,
+              // This is the AWS S3 zone id
+              HostedZoneId: 'Z3AQBSTGFYJSTF',
               DNSName: 's3-website-us-east-1.amazonaws.com.',
               EvaluateTargetHealth: false
             }
