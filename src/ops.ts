@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import mri from 'mri'
 
 const argv = process.argv.slice(2)

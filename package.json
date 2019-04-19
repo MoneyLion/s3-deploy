@@ -1,6 +1,6 @@
 {
   "name": "@moneylion/s3-deploy",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "engines": {
     "node": ">=11.13.0",
     "yarn": ">=1.15.0"
