@@ -1,10 +1,11 @@
 {
   "name": "@moneylion/s3-deploy",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "engines": {
     "node": ">=11.13.0",
     "yarn": ">=1.15.0"
   },
+  "main": "./dist/ops.js",
   "bin": "./dist/ops.js",
   "scripts": {
     "lint": "tslint --project ./tsconfig.json",
