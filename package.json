@@ -1,0 +1,37 @@
+{
+  "name": "s3-deploy",
+  "version": "1.0.0",
+  "private": true,
+  "engines": {
+    "node": ">=11.13.0",
+    "yarn": ">=1.15.0"
+  },
+  "bin": "./dist/ops.js",
+  "scripts": {
+    "lint": "tslint --project ./tsconfig.json",
+    "lint:fix": "tslint --fix --project ./tsconfig.json",
+    "test": "jest --detectOpenHandles --runInBand --forceExit"
+  },
+  "dependencies": {
+    "@types/jest": "^23.3.13",
+    "@types/mri": "^1.1.0",
+    "aws-sdk": "^2.396.0",
+    "dotenv": "^7.0.0",
+    "fast-glob": "^2.2.6",
+    "mime-types": "^2.1.21",
+    "mri": "^1.1.4",
+    "request": "^2.88.0",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.12.1",
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.3.1"
+  },
+  "devDependencies": {
+    "@types/dotenv": "^6.1.1",
+    "@types/mime-types": "^2.1.0",
+    "@types/node": "^11.13.5",
+    "@types/request": "^2.48.1",
+    "jest": "^24.7.1",
+    "ts-jest": "^24.0.2"
+  }
+}

@@ -1,0 +1,10 @@
+node_modules
+dist
+.tmp
+.DS_Store
+.tmp/
+.idea/
+.awcache/
+coverage/
+.env
+yarn-error.log
