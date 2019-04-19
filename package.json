@@ -1,7 +1,6 @@
 {
-  "name": "s3-deploy",
-  "version": "1.0.0",
-  "private": true,
+  "name": "@moneylion/s3-deploy",
+  "version": "1.0.1",
   "engines": {
     "node": ">=11.13.0",
     "yarn": ">=1.15.0"
