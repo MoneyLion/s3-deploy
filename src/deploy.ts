@@ -4,7 +4,7 @@ import path from 'path'
 import fg from 'fast-glob'
 import mime from 'mime-types'
 
-import { createBucket, setPolicy, setWebsite, upload, checkBucket } from './aws/s3'
+import { createBucket, setPolicy, setWebsite, upload, checkBucket, emptyBucket } from './aws/s3'
 
 import { createRecordSet } from './aws/route53'
 import { postToChannel } from './slack/message'
@@ -24,6 +24,7 @@ export const deploy = async (bucket: string, host: string, zone: string, dir: st
   const bucketExists = await checkBucket(fqdn)
 
   if (!bucketExists) await makeBucket(fqdn)
+  else await emptyBucket(fqdn)
 
   await uploadFiles(fqdn, files)
 
