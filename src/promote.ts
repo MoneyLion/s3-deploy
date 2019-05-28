@@ -15,21 +15,14 @@ interface FileType {
   contentType: string
 }
 
-export const promote = async (
-  bucket: string,
-  host: string,
-  distribution: string,
-  dir: string,
-  channel: string = null
-) => {
+export const promote = async (domain: string, distribution: string, dir: string, channel: string = null) => {
   const files = getFiles(dir)
-  const fqdn = `${bucket}.${host}`
 
-  await emptyBucket(fqdn)
-  await uploadFiles(fqdn, files)
+  await emptyBucket(domain)
+  await uploadFiles(domain, files)
   await createInvalidation(distribution)
 
-  const text = `Deployed ${fqdn}`
+  const text = `Deployed ${domain}`
   if (channel) await postToChannel(channel, text)
 
   console.log('Done.')
@@ -49,12 +42,12 @@ const getFiles = (dir: string): FileType[] => {
   return files
 }
 
-const uploadFiles = async (fqdn: string, files: FileType[]) => {
+const uploadFiles = async (domain: string, files: FileType[]) => {
   const total = files.length
   let done = 0
 
   const promises = files.map(async ({ key, body, contentType }) => {
-    await upload(fqdn, key, body, contentType)
+    await upload(domain, key, body, contentType)
     console.log(`Done ${++done}/${total}.`)
   })
 

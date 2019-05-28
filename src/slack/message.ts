@@ -4,7 +4,7 @@ dotenv.config()
 import request from 'request'
 
 const API_BASE = 'https://slack.com/api'
-const token = process.env.CODEFRESH_SLACK_BOT_TOKEN
+const token = process.env.SLACK_TOKEN
 
 export const postToChannel = (channel: string, text: string) => {
   const url = `${API_BASE}/chat.postMessage`

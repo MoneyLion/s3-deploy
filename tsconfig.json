@@ -7,5 +7,6 @@
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "outDir": "./dist"
-  }
+  },
+  "exclude": ["./**/*.test.ts"]
 }

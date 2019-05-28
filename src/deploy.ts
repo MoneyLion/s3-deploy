@@ -17,18 +17,19 @@ interface FileType {
   contentType: string
 }
 
-export const deploy = async (bucket: string, host: string, zone: string, dir: string, channel: string) => {
+export const deploy = async (domain: string, zone: string, dir: string, channel?: string) => {
   const files = getFiles(dir)
-  const fqdn = `${bucket}.${host}`
 
-  const bucketExists = await checkBucket(fqdn)
+  const bucketExists = await checkBucket(domain)
 
-  if (!bucketExists) await makeBucket(fqdn)
-  else await emptyBucket(fqdn)
+  if (!bucketExists) await makeBucket(domain)
+  else await emptyBucket(domain)
 
-  await uploadFiles(fqdn, files)
+  await uploadFiles(domain, files)
 
-  if (!bucketExists) await makeRecordSet(fqdn, zone, channel)
+  if (!bucketExists) await makeRecordSet(domain, zone)
+
+  if (typeof channel !== 'undefined') await postToChannel(channel, `Deployed app: ${domain}`)
 
   console.log('Done.')
 }
@@ -47,32 +48,30 @@ const getFiles = (dir: string): FileType[] => {
   return files
 }
 
-const makeBucket = async (fqdn: string) => {
-  await createBucket(fqdn)
+const makeBucket = async (domain: string) => {
+  await createBucket(domain)
   console.log('Done bucket.')
 
-  await setPolicy(fqdn)
+  await setPolicy(domain)
   console.log('Done policy.')
 
-  await setWebsite(fqdn)
+  await setWebsite(domain)
   console.log('Done website.')
 }
 
-const uploadFiles = async (fqdn: string, files: FileType[]) => {
+const uploadFiles = async (domain: string, files: FileType[]) => {
   const total = files.length
   let done = 0
 
   const promises = files.map(async ({ key, body, contentType }) => {
-    await upload(fqdn, key, body, contentType)
+    await upload(domain, key, body, contentType)
     console.log(`Done ${++done}/${total}.`)
   })
 
   await Promise.all(promises)
 }
 
-const makeRecordSet = async (fqdn: string, zone: string, channel: string) => {
-  await createRecordSet(fqdn, zone)
+const makeRecordSet = async (domain: string, zone: string) => {
+  await createRecordSet(domain, zone)
   console.log('Done route53.')
-  const text = `Deployed app: ${fqdn}`
-  if (typeof channel !== 'undefined') await postToChannel(channel, text)
 }
