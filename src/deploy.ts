@@ -8,7 +8,6 @@ import { createBucket, setPolicy, setWebsite, upload, checkBucket, emptyBucket }
 
 import { createRecordSet } from './aws/route53'
 import { postToChannel } from './slack/message'
-import { ParsedArgs } from './cli'
 
 const ROOT = process.cwd()
 
@@ -18,7 +17,7 @@ interface FileType {
   contentType: string
 }
 
-export const deploy = async ({ dir, domain, zone, channel, message }: ParsedArgs) => {
+export const deploy = async (domain: string, zone: string, dir: string, channel?: string, message?: string) => {
   const files = getFiles(dir)
 
   const bucketExists = await checkBucket(domain)

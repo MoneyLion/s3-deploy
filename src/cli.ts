@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import mri from 'mri'
 
 export interface ParsedArgs {

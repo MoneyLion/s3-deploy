@@ -6,7 +6,6 @@ import mime from 'mime-types'
 import { upload, emptyBucket } from './aws/s3'
 import { createInvalidation } from './aws/cloudfront'
 import { postToChannel } from './slack/message'
-import { ParsedArgs } from './cli'
 
 const ROOT = process.cwd()
 
@@ -16,7 +15,13 @@ interface FileType {
   contentType: string
 }
 
-export const promote = async ({ dir, domain, distribution, channel, message }: ParsedArgs) => {
+export const promote = async (
+  domain: string,
+  distribution: string,
+  dir: string,
+  channel: string = null,
+  message?: string
+) => {
   const files = getFiles(dir)
 
   await emptyBucket(domain)
