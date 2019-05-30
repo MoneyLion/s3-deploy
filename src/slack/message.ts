@@ -6,9 +6,12 @@ import request from 'request'
 const API_BASE = 'https://slack.com/api'
 const token = process.env.SLACK_TOKEN
 
-export const postToChannel = (channel: string, text: string) => {
+export const postToChannel = (channel: string, text: string, attachments?: string[]) => {
   const url = `${API_BASE}/chat.postMessage`
-  const body = JSON.stringify({ text, channel })
+  const post: Record<string, any> = { text, channel }
+  if (attachments.length) post.attachments = attachments.map(text => ({ text }))
+
+  const body = JSON.stringify(post)
 
   return new Promise((resolve, reject) => {
     request.post(

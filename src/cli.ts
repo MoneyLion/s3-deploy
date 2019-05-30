@@ -2,13 +2,14 @@
 
 import mri from 'mri'
 
-interface ParsedArgs {
+export interface ParsedArgs {
   action: 'deploy' | 'undeploy' | 'promote'
   domain: string
 
   zone?: string
   distribution?: string
   channel?: string
+  message?: string
   dir?: string
 }
 
@@ -27,7 +28,7 @@ const errors = {
 }
 
 const parseArgs = (argv: string[]): ParsedArgs => {
-  const args = mri(argv, { string: ['domain', 'zone', 'channel'] })
+  const args = mri(argv, { string: ['domain', 'zone', 'channel', 'message'] })
 
   const {
     _: [action, dir],
