@@ -19,7 +19,7 @@ export const promote = async (
   domain: string,
   distribution: string,
   dir: string,
-  channel: string = null,
+  channel?: string,
   message?: string
 ) => {
   const files = getFiles(dir)
@@ -28,9 +28,9 @@ export const promote = async (
   await uploadFiles(domain, files)
   await createInvalidation(distribution)
 
-  const text = `Deployed ${domain}`
   if (channel) {
-    const attachments = !message ? [] : [message]
+    const text = `Deployed ${domain}`
+    const attachments = !message ? [] : [...message.split(',')]
     await postToChannel(channel, text, attachments)
   }
 

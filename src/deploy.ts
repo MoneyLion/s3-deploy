@@ -30,8 +30,9 @@ export const deploy = async (domain: string, zone: string, dir: string, channel?
   if (!bucketExists) await makeRecordSet(domain, zone)
 
   if (typeof channel !== 'undefined') {
-    const attachments = !message ? [] : [message]
-    await postToChannel(channel, `Deployed app: ${domain}`, attachments)
+    const text = `Deployed ${domain}`
+    const attachments = !message ? [] : [...message.split(',')]
+    await postToChannel(channel, text, attachments)
   }
 
   console.log('Done.')
