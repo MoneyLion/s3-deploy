@@ -80,7 +80,7 @@ const isValidDistribution = (distribution: string) => {
   return true
 }
 
-const deploy = ({ domain, zone, dir, channel }: ParsedArgs) => {
+const deploy = ({ domain, zone, dir, channel, message }: ParsedArgs) => {
   const validDomain = isValidDomain(domain)
   const validZone = isValidZone(zone)
   const validDir = isValidDir(dir)
@@ -89,20 +89,20 @@ const deploy = ({ domain, zone, dir, channel }: ParsedArgs) => {
   if (validZone !== true) return forcedExit(validZone)
   if (validDir !== true) return forcedExit(validDir)
 
-  require('./deploy').deploy(domain, zone, dir, channel)
+  require('./deploy').deploy(domain, zone, dir, channel, message)
 }
 
-const undeploy = ({ domain, zone }: ParsedArgs) => {
+const undeploy = ({ domain, zone, channel, message }: ParsedArgs) => {
   const validDomain = isValidDomain(domain)
   const validZone = isValidZone(zone)
 
   if (validDomain !== true) return forcedExit(validDomain)
   if (validZone !== true) return forcedExit(validZone)
 
-  require('./undeploy').undeploy(domain, zone)
+  require('./undeploy').undeploy(domain, zone, channel, message)
 }
 
-const promote = ({ domain, distribution, dir, channel }: ParsedArgs) => {
+const promote = ({ domain, distribution, dir, channel, message }: ParsedArgs) => {
   const validDomain = isValidDomain(domain)
   const validDistribution = isValidDistribution(distribution)
   const validDir = isValidDir(dir)
@@ -111,7 +111,7 @@ const promote = ({ domain, distribution, dir, channel }: ParsedArgs) => {
   if (validDistribution !== true) return forcedExit(validDistribution)
   if (validDir !== true) return forcedExit(validDir)
 
-  require('./promote').promote(domain, distribution, dir, channel)
+  require('./promote').promote(domain, distribution, dir, channel, message)
 }
 
 export const cli = (argv: string[]) => {
