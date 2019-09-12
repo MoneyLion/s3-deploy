@@ -33,10 +33,11 @@ const parseArgs = (argv: string[]): ParsedArgs => {
     domain,
     zone,
     distribution,
-    channel
+    channel,
+    message
   } = args
 
-  return { action, dir, domain, zone, channel, distribution } as ParsedArgs
+  return { action, dir, domain, zone, channel, distribution, message } as ParsedArgs
 }
 
 const forcedExit = (msg: string) => {
